@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import json ,requests
 app = Flask(__name__)
 
 @app.route('/')
@@ -14,7 +15,23 @@ def study_image():
     # and read the result, make sure that you read and understand the
     # example we covered in the slides! 
 
-    # YOUR CODE HERE!
+    headers = {'Authorization': 'Key 62c59b4eb52547238acda6225d9bd908'}
+    api_url = "https://api.clarifai.com/v2/models/aaa03c23b3724a16a56b629203edc62c/outputs"
+
+    data ={"inputs": [
+      {
+        "data": {
+          "image": {
+            "url": image_url          }
+        }
+      }
+    ]}
+    response = requests.post(api_url, headers=headers, data=json.dumps(data))
+
+    response_dict = json.loads(response.content)
+    print (response_dict["outputs"][0]["data"]["concepts"])
+
+
     
     return render_template('home.html', results="No results yet :(")
 
