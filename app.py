@@ -22,14 +22,15 @@ def study_image():
       {
         "data": {
           "image": {
-            "url": image_url          }
+            "url": image_url
+                      }
         }
       }
     ]}
     response = requests.post(api_url, headers=headers, data=json.dumps(data))
 
     response_dict = json.loads(response.content)
-    print (response_dict["outputs"][0]["data"]["concepts"])
+    print (response_dict)#["outputs"][0]["data"]["concepts"])
 
 
     
